@@ -1,1 +1,0 @@
-Sample U.S. Sales dataset (2014–2017).
