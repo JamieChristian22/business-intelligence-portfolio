@@ -58,8 +58,10 @@ Each project mirrors real-world business cases across **finance, operations, ent
 **Focus:** Transportation analytics and public safety trends  
 **Key Insight:** Holiday weekends (July 4th, Labor Day) show a 35% traffic surge under clear weather conditions.  
 
-📁 [View Folder](./Data%20Visualization/Minnesota_Interstate_Traffic_Volume/)  
-![Minnesota Traffic Dashboard](./Data%20Visualization/Minnesota_Interstate_Traffic_Volume/Minnesota%20Interstate%20Traffic%20Volume.png)
+📁 [View Folder on GitHub](https://github.com/JamieChristian22/business-intelligence-portfolio/tree/main/Data%20Visualization/Minnesota_Interstate_Traffic_Volume)  
+🖼️ [View Dashboard Image](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Minnesota%20Interstate%20Traffic%20Volume.png)  
+
+![Minnesota Traffic Dashboard](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Minnesota%20Interstate%20Traffic%20Volume.png)
 
 ---
 
@@ -68,28 +70,34 @@ Each project mirrors real-world business cases across **finance, operations, ent
 **Focus:** Regional performance and KPI-driven executive insights  
 **Key Insight:** Midwest and East Coast regions dominate profit margins, while Furniture category underperforms due to discounting.  
 
-📁 [View Folder](./Data%20Visualization/Executive_Overview_Profitability/)  
-![Executive Overview Dashboard](./Data%20Visualization/Executive_Overview_Profitability/Executive%20Overview-3.png)
+📁 [View Folder on GitHub](https://github.com/JamieChristian22/business-intelligence-portfolio/tree/main/Data%20Visualization/Executive_Overview_Profitability)  
+🖼️ [View Dashboard Image](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Executive%20Overview-3.png)  
+
+![Executive Overview Dashboard](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Executive%20Overview-3.png)
 
 ---
-
 ### 3. 📈 Sales Performance Dashboard  
 **Tool:** Power BI  
 **Focus:** Target tracking, product-level sales, and rep performance  
-**Key Insight:** Overall achievement at **97.7 % of goal** — Smartphones and Laptops generate 70 % of total sales.  
+**Key Insight:** Overall achievement at **97.7% of goal** — Smartphones and Laptops generate 70% of total sales.  
 
-📁 [View Folder](./Data%20Visualization/Sales_Performance_Dashboard/)  
-![Sales Performance Dashboard](./Data%20Visualization/Sales_Performance_Dashboard/Sales%20Performance%20Dashboard.png)
+📁 [View Folder on GitHub](https://github.com/JamieChristian22/business-intelligence-portfolio/tree/main/Data%20Visualization/Sales_Performance_Dashboard)  
+🖼️ [View Dashboard Image](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Sales_Performance_Dashboard/Sales_Performance_Dashboard.png)  
+
+![Sales Performance Dashboard](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Sales_Performance_Dashboard/Sales_Performance_Dashboard.png)
+
 
 ---
 
 ### 4. 🎬 Netflix Content Analytics Dashboard  
 **Tool:** Tableau  
 **Focus:** Global content trends — genres, ratings, and distribution by country  
-**Key Insight:** 68 % of Netflix’s catalog are movies; U.S. and India lead in content production (2015–2019).  
+**Key Insight:** 68% of Netflix’s catalog are movies; U.S. and India lead in content production (2015–2019).  
 
-📁 [View Folder](./Data%20Visualization/Netflix_Content_Analytics/)  
-![Netflix Dashboard](./Data%20Visualization/Netflix_Content_Analytics/Netflix.png)
+📁 [View Folder on GitHub](https://github.com/JamieChristian22/business-intelligence-portfolio/tree/main/Data%20Visualization/Netflix_Content_Analytics)  
+🖼️ [View Dashboard Image](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Netflix.png)  
+
+![Netflix Dashboard](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Netflix.png)
 
 ---
 
@@ -98,8 +106,13 @@ Each project mirrors real-world business cases across **finance, operations, ent
 **Focus:** Profit trends, product segmentation, and regional performance  
 **Key Insight:** 2014 profits outperformed 2013 with consistent growth in Enterprise and Government segments.  
 
-📁 [View Folder](./Data%20Visualization/Financial_Performance_Dashboard/)  
-![Financial Dashboard](./Data%20Visualization/Financial_Performance_Dashboard/Financial_Report.png)
+📁 [View Folder on GitHub](https://github.com/JamieChristian22/business-intelligence-portfolio/tree/main/Data%20Visualization/Financial_Performance_Dashboard)  
+🖼️ [View Dashboard Image](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Financial_Performance_Dashboard/Financial_Performance_Dashboard.png)  
+
+![Financial Performance Dashboard](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Financial_Performance_Dashboard/Financial_Performance_Dashboard.png)
+
+---
+
 
 ---
 
