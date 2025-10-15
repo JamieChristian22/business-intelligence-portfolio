@@ -119,17 +119,21 @@ Each project mirrors real-world business cases across **finance, operations, ent
 ---
 
 ## 🗂 Repository Structure
- business-intelligence-portfolio/
 ├── README.md
-├── 01_Data_Modeling/
-├── 02_SQL_Queries/
-├── 03_Data_Visualization/
-│ ├── Minnesota_Interstate_Traffic_Volume/
-│ ├── Executive_Overview_Profitability/
-│ ├── Sales_Performance_Dashboard/
-│ ├── Netflix_Content_Analytics/
-│ └── Financial_Performance_Dashboard/
-└── 04_Case_Study/
+├── LICENSE
+├── data/
+│ └── raw / processed data + Data_Dictionary.xlsx
+├── model_documentation/
+│ └── ERDs, schema diagrams, and star schema explanation
+├── Project_Documentation/
+│ └── project writeups, narratives, and KPI definitions
+└── Data Visualization/
+├── Minnesota_Interstate_Traffic_Volume/
+├── Executive_Overview_Profitability/
+├── Sales_Performance_Dashboard/
+├── Netflix_Content_Analytics/
+└── Financial_Performance_Dashboard/
+
 ---
 
 ## 📜 License
