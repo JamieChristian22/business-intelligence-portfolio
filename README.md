@@ -108,12 +108,13 @@ business-intelligence-portfolio/
 - Content from India, Korea, and Spain saw +23% YoY growth  
 - Suggested global content expansion strategy
 
-**Visualization:**
-![Netflix Dashboard](Data_Visualization/Netflix_Content_Analytics/netflix_dashboard_preview.png)
+**Visualization:**  
+![Netflix Dashboard](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Netflix.png)  
+📂 *File Path:* `Data Visualization/Netflix.png`  
+🔗 [View on GitHub ↗](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Netflix.png)
 
-**Live Demo:** [Tableau Dashboard ↗](https://public.tableau.com/) *(placeholder)*
+**Live Demo:** [[Tableau Dashboard ↗](https://public.tableau.com](https://public.tableau.com/app/profile/jamie.christian/viz/Netflix_17444036610370/Netflix)/) *(placeholder)*
 
----
 
 ### 4️⃣ Sales Performance Dashboard
 **Objective:** Evaluate quarterly sales vs target by region, product, and channel.
