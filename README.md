@@ -64,15 +64,17 @@ business-intelligence-portfolio/
 - Created star schema for traffic volume analysis
 - Built KPIs: *Avg. Daily Volume*, *Peak Hours*, *Seasonal Variance*
 
-**Visualization:**
-![Traffic Dashboard](Data_Visualization/Minnesota_Interstate_Traffic_Volume/traffic_dashboard_preview.png)
+**Visualization:**  
+![Traffic Dashboard](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Minnesota%20Interstate%20Traffic%20Volume.png)  
+📂 *File Path:* `Data Visualization/Minnesota Interstate Traffic Volume.png`  
+🔗 [View on GitHub ↗](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Minnesota%20Interstate%20Traffic%20Volume.png)
 
 **Insights:**
 - 14% traffic surge between May–August annually  
 - Peak hours 4–6 PM; weekday congestion up 22% vs weekends  
 - Recommended DOT implement *time-based tolling pilot*  
 
-**Live Demo:** [View Tableau Dashboard ↗](https://public.tableau.com/) *(placeholder)*  
+**Live Demo:** [View Tableau Dashboard ↗](https://public.tableau.com/app/profile/jamie.christian/vizzes) *(profile)*
 
 ---
 
@@ -88,8 +90,10 @@ business-intelligence-portfolio/
 - Helped CFO team identify $2.4M in potential savings  
 - Reduced reporting prep time by 65% (automated refresh)
 
-**Visualization:**
-![Executive Dashboard](Data_Visualization/Executive_Overview_Profitability/profitability_dashboard_preview.png)
+**Visualization:**  
+![Executive Dashboard](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Executive%20Overview-3.png)  
+📂 *File Path:* `Data Visualization/Executive Overview-3.png`  
+🔗 [View on GitHub ↗](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Executive%20Overview-3.png)
 
 **Live Demo:** [Power BI Web Dashboard ↗](https://app.powerbi.com/) *(placeholder)*
 
@@ -113,8 +117,9 @@ business-intelligence-portfolio/
 📂 *File Path:* `Data Visualization/Netflix.png`  
 🔗 [View on GitHub ↗](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Netflix.png)
 
-**Live Demo:** [[Tableau Dashboard ↗](https://public.tableau.com](https://public.tableau.com/app/profile/jamie.christian/viz/Netflix_17444036610370/Netflix)/) *(placeholder)*
+**Live Demo:** [View Interactive Dashboard on Tableau Public ↗](https://public.tableau.com/app/profile/jamie.christian/viz/Netflix_17444036610370/Netflix)
 
+---
 
 ### 4️⃣ Sales Performance Dashboard
 **Objective:** Evaluate quarterly sales vs target by region, product, and channel.
@@ -128,8 +133,12 @@ business-intelligence-portfolio/
 - Detected underperforming product lines (-8% YoY)
 - Proposed data-driven inventory allocation by region
 
-**Visualization:**
-![Sales Dashboard](Data_Visualization/Sales_Performance_Dashboard/sales_dashboard_preview.png)
+**Visualization:**  
+![Sales Dashboard](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Sales%20Performance%20Dashboard.png)  
+📂 *File Path:* `Data Visualization/Sales Performance Dashboard.png`  
+🔗 [View on GitHub ↗](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Sales%20Performance%20Dashboard.png)
+
+**Live Demo:** [Power BI Web Dashboard ↗](https://app.powerbi.com/) *(placeholder)*
 
 ---
 
@@ -143,8 +152,12 @@ business-intelligence-portfolio/
 **Result:**  
 Streamlined reporting cycle by automating quarterly updates in Power BI.
 
-**Visualization:**
-![Finance Dashboard](Data_Visualization/Financial_Performance_Dashboard/finance_dashboard_preview.png)
+**Visualization:**  
+![Finance Dashboard](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Financial%20Performance%20Dashboard.png)  
+📂 *File Path:* `Data Visualization/Financial Performance Dashboard.png`  
+🔗 [View on GitHub ↗](https://github.com/JamieChristian22/business-intelligence-portfolio/blob/main/Data%20Visualization/Financial%20Performance%20Dashboard.png)
+
+**Live Demo:** [Power BI Web Dashboard ↗](https://app.powerbi.com/) *(placeholder)*
 
 ---
 
@@ -202,12 +215,10 @@ This project is licensed under the [MIT License](./LICENSE).
 ## ⭐ Summary
 
 ✅ **Now includes:**  
-✔️ Embedded visuals  
-✔️ Live demo placeholders  
+✔️ Embedded visuals (direct GitHub blob links)  
+✔️ Real Tableau Public live demo link for Netflix  
 ✔️ Quantified insights & outcomes  
 ✔️ Clear data ethics statement  
 ✔️ Step-by-step reproducibility  
 ✔️ Business storytelling per project  
 ✔️ Future roadmap  
-
-📈 **Expected rating:** **10 / 10 (Recruiter-Ready BI Portfolio)**
