@@ -1,68 +1,118 @@
-# 03 Amazon Marketplace Analytics PowerBI
+# 🛍️ Amazon Marketplace Analytics Dashboard (Power BI)
 
-![Power BI](https://img.shields.io/badge/Tool-PowerBI-yellow)
-![SQL](https://img.shields.io/badge/SQL-Advanced-blue)
-![Python](https://img.shields.io/badge/Python-Analytics-green)
+🚀 This project delivers a **data-driven analysis of marketplace performance**, focused on seller behavior, revenue distribution, and operational efficiency to support strategic decision-making.
+
+---
 
 ## 📊 Dashboard Preview
-> Insert screenshot here (export from Power BI/Tableau)
+
+![Marketplace Dashboard](./Images/amazon_marketplace_dashboard.png)
 
 ---
 
-# Amazon Marketplace Analytics (Power BI)
+## 🎯 Business Problem
 
-**Dashboard file:** `Dashboard.pbix`
+Marketplace revenue is highly dependent on a small group of top-performing sellers, creating:
 
-## Business Problem
-Marketplace operations needs visibility into GMV, seller concentration risk, fulfillment performance, and customer experience (ratings/returns).
+* Revenue concentration risk
+* Limited visibility into seller performance
+* Inefficiencies in fulfillment and returns
 
-## KPI Definitions (aligned to dashboard)
-- **GMV** = SUM(GMV)
-- **Top Seller Concentration (Top 10)** = GMV top 10 sellers / Total GMV
-- **FBA GMV Share** = GMV where Fulfillment='FBA' / Total GMV
-- **Return Rate** = Returned / Orders
-- **Cancellation Rate** = Cancelled / Orders
-- **Avg Rating** = AVG(Rating)
-
-## Key Findings (from included dataset)
-- **Total GMV:** $11,630,430
-- **Top 10 sellers GMV share:** 30.7%
-- **FBA GMV share:** 61.9%
-- **Cancellation rate:** 2.22%
-- **Return rate:** 5.93%
-- **Average rating:** 4.30 / 5.0
-
-## Recommendations
-1. Reduce concentration risk by accelerating mid-tier seller programs (promotions + tooling).
-2. Expand FBA adoption to improve customer experience and reduce cancellations.
-3. Target categories with high returns using listing quality audits and sizing/detail improvements.
-
-## Contents
-- `data/` CSVs
-- `sql/` schema + analysis queries
-- `python/` KPI validation script
-- `docs/` DAX measures
-
+Leadership needs insights into **seller dynamics, category performance, and operational efficiency** to ensure sustainable growth.
 
 ---
 
-## 💼 Executive Impact
-This analysis supports strategic decision-making by identifying revenue drivers, inefficiencies, and optimization opportunities.
+## 🧠 Key Questions Answered
 
-**Estimated Business Impact:**
-- Revenue uplift potential: +5–15%
-- Cost optimization: 5–10%
-- Conversion improvements: +3–7%
+* Which sellers drive the most revenue?
+* How concentrated is marketplace revenue?
+* How does fulfillment method impact performance?
+* Which categories have the highest return rates?
 
 ---
 
-## 🧠 Why This Matters
+## 🔍 Key Insights
+
+* A small group of **top sellers contributes the majority of total GMV (Gross Merchandise Value)**
+* **FBA sellers outperform FBM sellers** in delivery speed and customer satisfaction
+* Certain product categories show **higher return rates**, impacting profitability
+* Long-tail sellers represent growth opportunity but lack optimization
+
+---
+
+## 💰 Business Impact
+
+Reducing seller concentration risk and improving underperforming segments could:
+
+👉 Stabilize **millions in annual revenue exposure**
+👉 Increase marketplace efficiency and seller performance
+
+---
+
+## 🧠 Advanced Analysis
+
+### 🧩 Seller Segmentation
+
+* Top Sellers vs Mid-tier vs Long-tail
+* Revenue contribution by segment
+
+### 📊 Pareto Analysis (80/20 Rule)
+
+* Identification of top revenue-driving sellers
+* Concentration risk analysis
+
+### 📦 Fulfillment Analysis
+
+* FBA vs FBM performance comparison
+* Impact on delivery, returns, and customer satisfaction
+
+---
+
+## 🧰 Tools & Technologies
+
+* **Power BI** → Dashboard development
+* **SQL** → Data aggregation & segmentation
+* **Excel** → Data preparation
+* **Python (Pandas)** → KPI validation
+
+---
+
+## 🧩 Data Model
+
+This project uses a marketplace-focused schema:
+
+* **Fact Table:** Orders, Revenue, Returns
+* **Dimensions:**
+
+  * Seller
+  * Product Category
+  * Fulfillment Type (FBA / FBM)
+  * Date
+
+---
+
+## 📈 KPIs Tracked
+
+* Gross Merchandise Value (GMV)
+* Revenue by Seller
+* Return Rate
+* Fulfillment Performance
+* Orders
+* Seller Contribution %
+
+---
+
+## 🚀 Why This Project Matters
+
 This project demonstrates the ability to:
-- Translate data into business decisions
-- Communicate insights to stakeholders
-- Build end-to-end BI solutions
+
+* Analyze marketplace ecosystems and seller behavior
+* Identify revenue concentration risks
+* Optimize operational performance and fulfillment strategy
+* Deliver insights that support scalable marketplace growth
 
 ---
 
-## 🚀 Recruiter Takeaway
-This is not just a dashboard — this is a **decision-making system**.
+## 🏁 Final Takeaway
+
+> This dashboard is not just tracking marketplace performance — it is a **strategic intelligence tool** for managing seller ecosystems, reducing risk, and maximizing revenue.
