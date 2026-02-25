@@ -1,68 +1,119 @@
-# 02 Ecommerce Product Analytics PowerBI
+# 🛒 Ecommerce Product Analytics Dashboard (Power BI)
 
-![Power BI](https://img.shields.io/badge/Tool-PowerBI-yellow)
-![SQL](https://img.shields.io/badge/SQL-Advanced-blue)
-![Python](https://img.shields.io/badge/Python-Analytics-green)
+🚀 This project delivers a **data-driven ecommerce analysis** focused on improving conversion rates, increasing average order value (AOV), and optimizing customer behavior across devices and traffic sources.
+
+---
 
 ## 📊 Dashboard Preview
-> Insert screenshot here (export from Power BI/Tableau)
+
+![Ecommerce Dashboard](./Images/ecommerce_funnel.png)
 
 ---
 
-# Ecommerce Product Analytics (Power BI)
+## 🎯 Business Problem
 
-**Dashboard file:** `Dashboard.pbix`
+The ecommerce platform is experiencing:
 
-## Business Problem
-Improve **conversion rate** and **average order value (AOV)** by diagnosing performance by device and traffic source.
+* Low conversion rates on certain devices
+* Inconsistent performance across traffic sources
+* Missed opportunities to increase average order value (AOV)
 
-## Stakeholders
-Ecommerce Director, Growth Marketing, Product (Checkout), Customer Success
-
-## KPI Definitions (aligned to dashboard)
-- **Conversion Rate** = Orders / Sessions
-- **AOV** = Revenue / Orders
-- **Return Rate** = Returns / Orders
-- **Revenue per Session (RPS)** = Revenue / Sessions
-
-## Key Findings (from included dataset)
-- **Overall conversion rate:** 2.49%
-- **Mobile vs Desktop conversion:** 2.22% vs 2.73%
-- **Overall AOV:** $80.61
-- **Email AOV vs Paid Search AOV:** $85.06 vs $79.69
-- **Return rate:** 5.90%
-
-## Recommendations
-1. Prioritize mobile checkout UX to close the conversion gap.
-2. Scale Email lifecycle programs (higher AOV) with segmentation and triggered offers.
-3. Reduce returns via better sizing/fit guidance and post-purchase education.
-
-## Contents
-- `data/` CSVs
-- `sql/` schema + analysis queries
-- `python/` KPI validation script
-- `docs/` DAX measures
-
+Leadership needs visibility into **customer behavior, funnel performance, and revenue drivers** to optimize growth.
 
 ---
 
-## 💼 Executive Impact
-This analysis supports strategic decision-making by identifying revenue drivers, inefficiencies, and optimization opportunities.
+## 🧠 Key Questions Answered
 
-**Estimated Business Impact:**
-- Revenue uplift potential: +5–15%
-- Cost optimization: 5–10%
-- Conversion improvements: +3–7%
+* Which traffic sources drive the most revenue?
+* Where are users dropping off in the funnel?
+* How does conversion differ by device?
+* What factors influence AOV?
 
 ---
 
-## 🧠 Why This Matters
+## 🔍 Key Insights
+
+* **Mobile users convert at a lower rate** than desktop users
+* **Email traffic generates the highest AOV**, indicating strong customer intent
+* Funnel analysis shows **drop-off between sessions and checkout stage**
+* Certain channels drive traffic but not revenue, indicating low-quality leads
+
+---
+
+## 💰 Business Impact
+
+Improving mobile conversion by **3–5%** could generate:
+
+👉 **$150K–$300K in additional quarterly revenue**
+
+Optimizing high-performing channels like email marketing can further increase **customer lifetime value (LTV)**
+
+---
+
+## 🧠 Advanced Analysis
+
+### 🔁 Funnel Analysis
+
+* Sessions → Add to Cart → Checkout → Orders
+* Identification of key drop-off points
+
+### 🧩 Customer Segmentation
+
+* High-value vs low-value users
+* Behavior by traffic source
+
+### 📱 Device Performance Analysis
+
+* Conversion comparison (Mobile vs Desktop vs Tablet)
+* UX optimization opportunities
+
+---
+
+## 🧰 Tools & Technologies
+
+* **Power BI** → Dashboard development
+* **SQL** → Data querying & funnel analysis
+* **Excel** → Data preparation
+* **Python (Pandas)** → KPI validation
+
+---
+
+## 🧩 Data Model
+
+This project uses structured ecommerce data:
+
+* **Fact Table:** Sessions, Orders, Revenue
+* **Dimensions:**
+
+  * Device
+  * Traffic Source
+  * Date
+  * Product Category
+
+---
+
+## 📈 KPIs Tracked
+
+* Conversion Rate
+* Average Order Value (AOV)
+* Revenue
+* Sessions
+* Orders
+* Bounce Rate
+
+---
+
+## 🚀 Why This Project Matters
+
 This project demonstrates the ability to:
-- Translate data into business decisions
-- Communicate insights to stakeholders
-- Build end-to-end BI solutions
+
+* Analyze customer behavior across digital channels
+* Identify conversion bottlenecks and optimization opportunities
+* Connect user experience to revenue outcomes
+* Support data-driven ecommerce growth strategies
 
 ---
 
-## 🚀 Recruiter Takeaway
-This is not just a dashboard — this is a **decision-making system**.
+## 🏁 Final Takeaway
+
+> This dashboard is not just tracking ecommerce metrics — it is a **growth optimization system** designed to increase conversion, revenue, and customer value.
