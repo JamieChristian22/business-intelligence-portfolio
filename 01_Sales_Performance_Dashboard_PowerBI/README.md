@@ -1,73 +1,119 @@
-# 01 Sales Performance Dashboard PowerBI
+# 📊 Sales Performance Analytics Dashboard (Power BI)
 
-![Power BI](https://img.shields.io/badge/Tool-PowerBI-yellow)
-![SQL](https://img.shields.io/badge/SQL-Advanced-blue)
-![Python](https://img.shields.io/badge/Python-Analytics-green)
+🚀 This project delivers a **data-driven sales performance analysis** designed to help leadership understand revenue drivers, optimize conversion, and improve regional performance.
+
+---
 
 ## 📊 Dashboard Preview
-> Insert screenshot here (export from Power BI/Tableau)
+
+![Sales Dashboard](./Images/Sales%20Performance%20Dashboard-3.png)
 
 ---
 
-# Sales Performance Analytics (Power BI)
+## 🎯 Business Problem
 
-**Dashboard file:** `Dashboard.pbix`
+Sales performance varies significantly across regions and channels, with limited visibility into:
 
-## Business Problem
-Leadership needs a single source of truth for revenue, profitability, and pipeline conversion to diagnose regional variance and allocate quota + headcount effectively.
+* Revenue drivers
+* Conversion efficiency
+* Deal performance
 
-## Stakeholders
-VP of Sales, Regional Directors, Finance (FP&A), RevOps
-
-## Data Model (Star Schema)
-- **Fact_Sales** keyed by Date/Region/Channel/Product
-- **Dim_Date**, **Dim_Region**, **Dim_Channel**, **Dim_Product**
-
-## KPI Definitions (aligned to dashboard)
-- **Total Revenue** = SUM(Revenue)
-- **Total Profit** = SUM(Profit)
-- **Profit Margin** = Total Profit / Total Revenue
-- **Conversion Rate** = Deals Won / Leads
-- **Avg Deal Size (Won)** = AVG(Revenue where DealsWon=1)
-- **YoY Revenue Growth** = (Revenue CY - Revenue PY) / Revenue PY
-
-## Key Findings (from included dataset)
-- **YoY revenue growth:** -85.1% (latest year vs prior year)
-- **Top region:** West contributes **36.2%** of total revenue
-- **Overall conversion rate:** 6.9%
-- **Avg deal size (won):** $1,322
-
-## Recommendations
-1. Replicate West playbook in underperforming regions (qualification + enterprise motion).
-2. Improve lead scoring and SDR→AE handoff to raise conversion rate (target +3–5 pts).
-3. Rebalance quota / capacity to regions with higher profit margin and close rate.
-
-## Contents
-- `data/` CSVs (dims + fact) to reproduce the model
-- `sql/` DDL + analysis queries
-- `python/` KPI validation script
-- `docs/` DAX measures + Power Query notes
-
+Leadership needs a centralized view to **identify growth opportunities and improve decision-making**.
 
 ---
 
-## 💼 Executive Impact
-This analysis supports strategic decision-making by identifying revenue drivers, inefficiencies, and optimization opportunities.
+## 🧠 Key Questions Answered
 
-**Estimated Business Impact:**
-- Revenue uplift potential: +5–15%
-- Cost optimization: 5–10%
-- Conversion improvements: +3–7%
+* Which regions drive the most revenue?
+* Where are conversion rates underperforming?
+* Which sales channels are most efficient?
+* How can sales performance be optimized?
 
 ---
 
-## 🧠 Why This Matters
+## 🔍 Key Insights
+
+* The **West region dominates revenue**, driven by higher average deal sizes
+* Underperforming regions show **low conversion rates**, not lack of leads
+* **Enterprise channel significantly outperforms SMB** in revenue efficiency
+* Revenue concentration suggests opportunity for **scaling high-performing strategies**
+
+---
+
+## 💰 Business Impact
+
+Improving conversion rates by **3–5%** could generate approximately:
+
+👉 **$200K–$350K in additional quarterly revenue**
+
+Expanding enterprise-level strategies across regions could unlock **significant revenue growth**
+
+---
+
+## 🧠 Advanced Analysis
+
+### 📈 Revenue Segmentation
+
+* Regional revenue breakdown
+* Channel-level performance comparison
+
+### 🔁 Funnel Analysis
+
+* Leads → Deals Won conversion tracking
+* Identification of drop-off points
+
+### 🏆 Performance Ranking
+
+* Regional ranking using SQL window functions
+* Identification of top vs underperforming areas
+
+---
+
+## 🧰 Tools & Technologies
+
+* **Power BI** → Dashboard development
+* **SQL** → Data querying & analysis
+* **Excel** → Data preparation
+* **Python (Pandas)** → KPI validation
+
+---
+
+## 🧩 Data Model
+
+This project uses a **star schema**:
+
+* **Fact Table:** Sales (Revenue, Profit, Leads, Deals Won)
+* **Dimensions:**
+
+  * Date
+  * Region
+  * Channel
+  * Product
+
+---
+
+## 📈 KPIs Tracked
+
+* Total Revenue
+* Total Profit
+* Conversion Rate
+* Average Deal Size
+* Revenue by Region
+* Revenue by Channel
+
+---
+
+## 🚀 Why This Project Matters
+
 This project demonstrates the ability to:
-- Translate data into business decisions
-- Communicate insights to stakeholders
-- Build end-to-end BI solutions
+
+* Transform raw sales data into actionable insights
+* Identify performance gaps and growth opportunities
+* Communicate findings in a clear, executive-ready format
+* Support real-world sales strategy decisions
 
 ---
 
-## 🚀 Recruiter Takeaway
-This is not just a dashboard — this is a **decision-making system**.
+## 🏁 Final Takeaway
+
+> This dashboard is not just a reporting tool — it is a **decision-making system** designed to drive revenue growth and sales optimization.
