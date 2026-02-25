@@ -1,65 +1,120 @@
-# 04 FPNA Executive Analytics PowerBI
+# 💰 FP&A Executive Analytics Dashboard (Power BI)
 
-![Power BI](https://img.shields.io/badge/Tool-PowerBI-yellow)
-![SQL](https://img.shields.io/badge/SQL-Advanced-blue)
-![Python](https://img.shields.io/badge/Python-Analytics-green)
+🚀 This project delivers a **financial planning & analysis (FP&A) executive dashboard** designed to help leadership monitor financial performance, control costs, and drive strategic decision-making.
+
+---
 
 ## 📊 Dashboard Preview
-> Insert screenshot here (export from Power BI/Tableau)
+
+![FP\&A Dashboard](./Images/fpna_executive_analytics_powerbi_dashboard.png)
 
 ---
 
-# FP&A Executive Analytics (Power BI)
+## 🎯 Business Problem
 
-**Dashboard file:** `Dashboard.pbix`
+Leadership lacks a centralized view of financial performance across departments, making it difficult to:
 
-## Business Problem
-Executives need visibility into **budget vs actuals**, variance drivers, and margin trends to control spend and protect profitability.
+* Track budget vs actual performance
+* Identify cost inefficiencies
+* Monitor profitability and financial health
+* Make timely, data-driven decisions
 
-## KPI Definitions (aligned to dashboard)
-- **Total Budget** = SUM(Budget)
-- **Total Actual** = SUM(Actual)
-- **Variance** = Actual - Budget
-- **Variance %** = Variance / Budget
-- **Gross Margin** = GrossProfit / Revenue
-
-## Key Findings (from included dataset)
-- **Company variance vs budget:** 1.4%
-- **Largest overspending department:** Marketing ($754,026)
-- **Avg gross margin:** 59.9%
-- **Revenue growth (period):** 48.6%
-
-## Recommendations
-1. Implement monthly spend guardrails for Marketing with approval thresholds and vendor renegotiation.
-2. Standardize forecasting with variance drilldowns (dept → account) and driver-based assumptions.
-3. Reallocate under-used budget toward high-ROI spend lines.
-
-## Contents
-- `data/` CSVs
-- `sql/` schema + analysis queries
-- `python/` KPI validation script
-- `docs/` DAX measures
-
+Finance teams need a dashboard that provides **real-time visibility into key financial metrics and trends**.
 
 ---
 
-## 💼 Executive Impact
-This analysis supports strategic decision-making by identifying revenue drivers, inefficiencies, and optimization opportunities.
+## 🧠 Key Questions Answered
 
-**Estimated Business Impact:**
-- Revenue uplift potential: +5–15%
-- Cost optimization: 5–10%
-- Conversion improvements: +3–7%
+* Are we over or under budget?
+* Which departments are driving costs?
+* How is profitability trending over time?
+* Where can we improve financial efficiency?
 
 ---
 
-## 🧠 Why This Matters
+## 🔍 Key Insights
+
+* **Marketing consistently exceeds budget**, indicating cost control issues
+* Certain departments operate **below budget**, suggesting resource underutilization
+* Variance trends highlight **gaps in forecasting accuracy**
+* Profitability is impacted by **cost structure rather than revenue decline**
+
+---
+
+## 💰 Business Impact
+
+Improving budget control and cost allocation could:
+
+👉 Reduce operational expenses by **5–10% annually**
+👉 Improve forecasting accuracy and financial planning reliability
+👉 Enable more strategic resource allocation across departments
+
+---
+
+## 🧠 Advanced Analysis
+
+### 📊 Budget vs Actual Analysis
+
+* Variance tracking by department
+* Identification of over/under-spending trends
+
+### 💸 Cost Segmentation
+
+* Department-level expense breakdown
+* Identification of high-cost drivers
+
+### 📈 Financial Trend Analysis
+
+* Revenue, profit, and expense trends over time
+* Performance tracking against targets
+
+---
+
+## 🧰 Tools & Technologies
+
+* **Power BI** → Executive dashboard development
+* **SQL** → Data aggregation & financial analysis
+* **Excel** → Financial data preparation
+* **Python (Pandas)** → KPI validation
+
+---
+
+## 🧩 Data Model
+
+This project uses a finance-focused structure:
+
+* **Fact Table:** Financials (Revenue, Expenses, Profit)
+* **Dimensions:**
+
+  * Department
+  * Date
+  * Cost Category
+  * Budget vs Actual
+
+---
+
+## 📈 KPIs Tracked
+
+* Revenue
+* Expenses
+* Profit
+* Budget vs Actual Variance
+* Profit Margin
+* Cost by Department
+
+---
+
+## 🚀 Why This Project Matters
+
 This project demonstrates the ability to:
-- Translate data into business decisions
-- Communicate insights to stakeholders
-- Build end-to-end BI solutions
+
+* Analyze financial performance at an executive level
+* Identify cost inefficiencies and optimization opportunities
+* Support strategic planning and forecasting
+* Translate financial data into actionable business insights
 
 ---
 
-## 🚀 Recruiter Takeaway
-This is not just a dashboard — this is a **decision-making system**.
+## 🏁 Final Takeaway
+
+> This dashboard is not just a financial report — it is a **strategic decision-making system** that enables leadership to control costs, improve profitability, and drive business performance.
