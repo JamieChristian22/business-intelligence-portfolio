@@ -1,0 +1,10 @@
+-- FP&A Measures (DAX)
+Total Budget = SUM(Fact_BudgetActual[Budget])
+Total Actual = SUM(Fact_BudgetActual[Actual])
+Variance = [Total Actual] - [Total Budget]
+Variance % = DIVIDE([Variance],[Total Budget])
+
+Revenue = SUM(Fact_RevenueCOGS[Revenue])
+COGS = SUM(Fact_RevenueCOGS[COGS])
+Gross Profit = [Revenue] - [COGS]
+Gross Margin = DIVIDE([Gross Profit],[Revenue])

@@ -1,0 +1,10 @@
+Power Query (M) outline
+1) Import Dim_Date, Dim_Region, Dim_Channel, Dim_Product, Fact_Sales from CSV
+2) Set data types:
+   - Date as Date, DateKey as Whole Number
+   - Revenue/Profit as Decimal
+3) Relationships:
+   - Fact_Sales[DateKey] -> Dim_Date[DateKey]
+   - Fact_Sales[RegionKey] -> Dim_Region[RegionKey]
+   - Fact_Sales[ChannelKey] -> Dim_Channel[ChannelKey]
+   - Fact_Sales[ProductKey] -> Dim_Product[ProductKey]

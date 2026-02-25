@@ -1,0 +1,18 @@
+-- Core Measures (DAX)
+Total Revenue = SUM(Fact_Sales[Revenue])
+Total Profit  = SUM(Fact_Sales[Profit])
+Profit Margin = DIVIDE([Total Profit],[Total Revenue])
+
+Total Leads   = SUM(Fact_Sales[Leads])
+Deals Won     = SUM(Fact_Sales[DealsWon])
+Conversion Rate = DIVIDE([Deals Won],[Total Leads])
+
+Avg Deal Size (Won) =
+AVERAGEX(
+    FILTER(Fact_Sales, Fact_Sales[DealsWon] = 1),
+    Fact_Sales[Revenue]
+)
+
+Revenue CY = [Total Revenue]
+Revenue PY = CALCULATE([Total Revenue], SAMEPERIODLASTYEAR(Dim_Date[Date]))
+YoY Revenue Growth = DIVIDE([Revenue CY] - [Revenue PY], [Revenue PY])

@@ -1,0 +1,10 @@
+Tableau Calculated Fields (examples)
+
+MRR:
+IF ISNULL([ChurnDate]) OR [ChurnDate] > TODAY() THEN [Price] ELSE 0 END
+
+Is Active:
+IF [SignupDate] <= TODAY() AND (ISNULL([ChurnDate]) OR [ChurnDate] > TODAY()) THEN 1 ELSE 0 END
+
+Churned in Last 30 Days:
+IF NOT ISNULL([ChurnDate]) AND [ChurnDate] > DATEADD('day',-30,TODAY()) THEN 1 ELSE 0 END

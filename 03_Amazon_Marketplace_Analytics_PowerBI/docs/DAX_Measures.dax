@@ -1,0 +1,12 @@
+-- Marketplace Measures (DAX)
+GMV = SUM(Fact_Marketplace_Orders[GMV])
+Orders = COUNTROWS(Fact_Marketplace_Orders)
+Cancelled Orders = SUM(Fact_Marketplace_Orders[Cancelled])
+Returned Orders = SUM(Fact_Marketplace_Orders[Returned])
+
+Cancellation Rate = DIVIDE([Cancelled Orders],[Orders])
+Return Rate = DIVIDE([Returned Orders],[Orders])
+Avg Rating = AVERAGE(Fact_Marketplace_Orders[Rating])
+
+FBA GMV = CALCULATE([GMV], Fact_Marketplace_Orders[Fulfillment] = "FBA")
+FBA GMV Share = DIVIDE([FBA GMV],[GMV])

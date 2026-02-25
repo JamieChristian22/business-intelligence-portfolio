@@ -1,0 +1,10 @@
+-- Ecommerce Measures (DAX)
+Sessions = SUM(Fact_Web_Analytics[Sessions])
+Orders   = SUM(Fact_Web_Analytics[Orders])
+Revenue  = SUM(Fact_Web_Analytics[Revenue])
+Returns  = SUM(Fact_Web_Analytics[Returns])
+
+Conversion Rate = DIVIDE([Orders],[Sessions])
+AOV = DIVIDE([Revenue],[Orders])
+Return Rate = DIVIDE([Returns],[Orders])
+Revenue per Session = DIVIDE([Revenue],[Sessions])
