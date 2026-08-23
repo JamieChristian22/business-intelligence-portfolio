@@ -201,7 +201,7 @@ It demonstrates the ability to:
 
 # 📬 Let’s Connect
 
-* 🔗 LinkedIn: https://linkedin.com/in/your-link
+* 🔗 LinkedIn: [https://linkedin.com/in/your-link](https://www.linkedin.com/in/jamiechristian2/)
 * 💻 GitHub: https://github.com/JamieChristian22
 * 📧 Email: [Jamiechristian331@gmail.com](mailto:Jamiechristian331@gmail.com)
 
