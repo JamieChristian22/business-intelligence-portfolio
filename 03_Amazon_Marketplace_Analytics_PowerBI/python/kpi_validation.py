@@ -1,20 +1,38 @@
+from pathlib import Path
 import pandas as pd
-orders = pd.read_csv("../data/Fact_Marketplace_Orders.csv")
-sellers = pd.read_csv("../data/Dim_Seller.csv")
-df = orders.merge(sellers[["SellerKey","Seller","Tier"]], on="SellerKey", how="left")
+import numpy as np
 
-gmv_total = df["GMV"].sum()
-seller_gmv = df.groupby("Seller")["GMV"].sum().sort_values(ascending=False)
-top10_share = seller_gmv.head(10).sum()/gmv_total
+ROOT=Path(__file__).resolve().parents[1]
+DATA=ROOT/"data"
+OUT=ROOT/"docs"/"KPI_Validation_Results.csv"
 
-fba_share = df.loc[df["Fulfillment"]=="FBA","GMV"].sum()/gmv_total
-cancel_rate = df["Cancelled"].mean()
-return_rate = df["Returned"].mean()
-avg_rating = df["Rating"].mean()
+f=pd.read_csv(DATA/"Fact_Marketplace_Orders.csv")
+s=pd.read_csv(DATA/"Dim_Seller.csv")
 
-print("GMV:", round(gmv_total,2))
-print("Top10 share:", round(top10_share,4))
-print("FBA share:", round(fba_share,4))
-print("Cancel rate:", round(cancel_rate,4))
-print("Return rate:", round(return_rate,4))
-print("Avg rating:", round(avg_rating,2))
+required={"DateKey","SellerKey","Category","Fulfillment","Units","ItemPrice","GMV","Rating","Cancelled","Returned"}
+assert required.issubset(f.columns)
+assert f.isna().sum().sum()==0
+assert (f["Units"]>=0).all()
+assert (f["ItemPrice"]>0).all()
+assert (f["GMV"]>=0).all()
+assert f["Rating"].between(1,5).all()
+assert f["Cancelled"].isin([0,1]).all()
+assert f["Returned"].isin([0,1]).all()
+assert f["SellerKey"].isin(s["SellerKey"]).all()
+
+gmv=f["GMV"].sum()
+orders=len(f)
+units=f["Units"].sum()
+returns=f["Returned"].sum()
+cancels=f["Cancelled"].sum()
+weighted=np.average(f["Rating"],weights=np.maximum(f["Units"],1))
+
+sp=f.groupby("SellerKey")["GMV"].sum().sort_values(ascending=False)
+top10=sp.head(10).sum()/gmv
+
+pd.DataFrame({
+"KPI":["Gross Merchandise Value","Orders","Units Sold","Average Order GMV","Average Unit Value","Return Rate","Cancellation Rate","Weighted Rating","Top 10 Seller GMV Share"],
+"ValidatedValue":[gmv,orders,units,gmv/orders,gmv/units,returns/orders,cancels/orders,weighted,top10]
+}).to_csv(OUT,index=False)
+
+print("Validation passed.")

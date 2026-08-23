@@ -1,12 +1,51 @@
--- Marketplace Measures (DAX)
 GMV = SUM(Fact_Marketplace_Orders[GMV])
 Orders = COUNTROWS(Fact_Marketplace_Orders)
-Cancelled Orders = SUM(Fact_Marketplace_Orders[Cancelled])
-Returned Orders = SUM(Fact_Marketplace_Orders[Returned])
+Units Sold = SUM(Fact_Marketplace_Orders[Units])
+Returns = SUM(Fact_Marketplace_Orders[Returned])
+Cancellations = SUM(Fact_Marketplace_Orders[Cancelled])
+Average Order GMV = DIVIDE([GMV],[Orders])
+Average Unit Value = DIVIDE([GMV],[Units Sold])
+Return Rate = DIVIDE([Returns],[Orders])
+Cancellation Rate = DIVIDE([Cancellations],[Orders])
 
-Cancellation Rate = DIVIDE([Cancelled Orders],[Orders])
-Return Rate = DIVIDE([Returned Orders],[Orders])
-Avg Rating = AVERAGE(Fact_Marketplace_Orders[Rating])
+Weighted Rating =
+DIVIDE(
+    SUMX(Fact_Marketplace_Orders, Fact_Marketplace_Orders[Rating] * Fact_Marketplace_Orders[Units]),
+    [Units Sold]
+)
 
-FBA GMV = CALCULATE([GMV], Fact_Marketplace_Orders[Fulfillment] = "FBA")
-FBA GMV Share = DIVIDE([FBA GMV],[GMV])
+Seller GMV Share =
+DIVIDE([GMV], CALCULATE([GMV], ALLSELECTED(Dim_Seller[Seller])))
+
+Seller GMV Rank =
+RANKX(ALLSELECTED(Dim_Seller[Seller]), [GMV], , DESC, DENSE)
+
+Top 10 Seller GMV =
+CALCULATE(
+    [GMV],
+    TOPN(10, ALLSELECTED(Dim_Seller[Seller]), [GMV], DESC)
+)
+
+Top 10 Seller GMV Share =
+DIVIDE([Top 10 Seller GMV], CALCULATE([GMV], ALLSELECTED(Dim_Seller[Seller])))
+
+GMV PY = CALCULATE([GMV], DATEADD(Dim_Date[Date], -1, YEAR))
+GMV YoY Change = [GMV] - [GMV PY]
+GMV YoY % = DIVIDE([GMV YoY Change], [GMV PY])
+GMV YTD = TOTALYTD([GMV], Dim_Date[Date])
+
+Seller Risk Flag =
+VAR HighShare = [Seller GMV Share] >= 0.02
+VAR HighReturns = [Return Rate] >= 0.08
+VAR LowRating = [Weighted Rating] < 4.0
+RETURN
+SWITCH(
+    TRUE(),
+    HighShare && (HighReturns || LowRating), "High Priority",
+    HighReturns || LowRating, "Monitor",
+    "Healthy"
+)
+
+Dynamic Title =
+"Marketplace Analytics | " &
+COALESCE(SELECTEDVALUE(Dim_Seller[Tier]), "All Seller Tiers")
