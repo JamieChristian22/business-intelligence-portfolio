@@ -1,0 +1,5 @@
+-- Illustrative framework for future forecast-vs-actual validation.
+-- Use only after a Forecast column/table exists.
+-- SELECT period, forecast, actual, actual-forecast AS error,
+-- ABS(actual-forecast)/NULLIF(actual,0) AS absolute_percentage_error
+-- FROM forecast_actual;

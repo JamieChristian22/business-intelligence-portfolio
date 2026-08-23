@@ -1,10 +1,53 @@
--- FP&A Measures (DAX)
 Total Budget = SUM(Fact_BudgetActual[Budget])
 Total Actual = SUM(Fact_BudgetActual[Actual])
-Variance = [Total Actual] - [Total Budget]
-Variance % = DIVIDE([Variance],[Total Budget])
+Budget Variance = [Total Actual] - [Total Budget]
+Budget Variance % = DIVIDE([Budget Variance], [Total Budget])
 
 Revenue = SUM(Fact_RevenueCOGS[Revenue])
 COGS = SUM(Fact_RevenueCOGS[COGS])
 Gross Profit = [Revenue] - [COGS]
-Gross Margin = DIVIDE([Gross Profit],[Revenue])
+Gross Margin = DIVIDE([Gross Profit], [Revenue])
+
+Operating Profit = [Gross Profit] - [Total Actual]
+Operating Margin = DIVIDE([Operating Profit], [Revenue])
+
+Positive Variance Exposure =
+SUMX(
+    FILTER(Fact_BudgetActual, Fact_BudgetActual[Actual] > Fact_BudgetActual[Budget]),
+    Fact_BudgetActual[Actual] - Fact_BudgetActual[Budget]
+)
+
+Favorable Variance =
+SUMX(
+    FILTER(Fact_BudgetActual, Fact_BudgetActual[Actual] < Fact_BudgetActual[Budget]),
+    Fact_BudgetActual[Budget] - Fact_BudgetActual[Actual]
+)
+
+Budget PY = CALCULATE([Total Budget], DATEADD(Dim_Date[MonthStart], -1, YEAR))
+Actual PY = CALCULATE([Total Actual], DATEADD(Dim_Date[MonthStart], -1, YEAR))
+Revenue PY = CALCULATE([Revenue], DATEADD(Dim_Date[MonthStart], -1, YEAR))
+Revenue YoY % = DIVIDE([Revenue] - [Revenue PY], [Revenue PY])
+
+Actual 3M Avg =
+AVERAGEX(
+    DATESINPERIOD(Dim_Date[MonthStart], MAX(Dim_Date[MonthStart]), -3, MONTH),
+    [Total Actual]
+)
+
+Revenue 3M Avg =
+AVERAGEX(
+    DATESINPERIOD(Dim_Date[MonthStart], MAX(Dim_Date[MonthStart]), -3, MONTH),
+    [Revenue]
+)
+
+Expense Run Rate Annualized = [Actual 3M Avg] * 12
+Revenue Run Rate Annualized = [Revenue 3M Avg] * 12
+
+Variance Status =
+SWITCH(
+    TRUE(),
+    [Budget Variance %] > 0.10, "High Attention",
+    [Budget Variance %] > 0.05, "Watch",
+    [Budget Variance %] < -0.05, "Favorable",
+    "Near Plan"
+)
