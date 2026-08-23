@@ -1,36 +1,11 @@
--- Star schema (PostgreSQL-compatible)
-CREATE TABLE dim_date (
-  datekey INT PRIMARY KEY,
-  date DATE NOT NULL,
-  year INT,
-  month INT,
-  monthname TEXT,
-  quarter TEXT
-);
-
-CREATE TABLE dim_region (
-  regionkey INT PRIMARY KEY,
-  region TEXT NOT NULL
-);
-
-CREATE TABLE dim_channel (
-  channelkey INT PRIMARY KEY,
-  channel TEXT NOT NULL
-);
-
-CREATE TABLE dim_product (
-  productkey INT PRIMARY KEY,
-  product TEXT NOT NULL,
-  category TEXT
-);
-
+CREATE TABLE dim_date (datekey INTEGER PRIMARY KEY, date DATE NOT NULL, year INTEGER NOT NULL, month INTEGER NOT NULL, monthname VARCHAR(9) NOT NULL, quarter VARCHAR(2) NOT NULL);
+CREATE TABLE dim_region (regionkey INTEGER PRIMARY KEY, region VARCHAR(50) NOT NULL);
+CREATE TABLE dim_channel (channelkey INTEGER PRIMARY KEY, channel VARCHAR(50) NOT NULL);
+CREATE TABLE dim_product (productkey INTEGER PRIMARY KEY, product VARCHAR(100) NOT NULL);
 CREATE TABLE fact_sales (
-  datekey INT REFERENCES dim_date(datekey),
-  regionkey INT REFERENCES dim_region(regionkey),
-  channelkey INT REFERENCES dim_channel(channelkey),
-  productkey INT REFERENCES dim_product(productkey),
-  revenue NUMERIC(12,2),
-  profit NUMERIC(12,2),
-  leads INT,
-  dealswon INT
+ datekey INTEGER NOT NULL, regionkey INTEGER NOT NULL, channelkey INTEGER NOT NULL, productkey INTEGER NOT NULL,
+ revenue DECIMAL(18,2) NOT NULL CHECK (revenue >= 0), profit DECIMAL(18,2) NOT NULL,
+ leads INTEGER NOT NULL CHECK (leads >= 0), dealswon INTEGER NOT NULL CHECK (dealswon >= 0 AND dealswon <= leads),
+ FOREIGN KEY(datekey) REFERENCES dim_date(datekey), FOREIGN KEY(regionkey) REFERENCES dim_region(regionkey),
+ FOREIGN KEY(channelkey) REFERENCES dim_channel(channelkey), FOREIGN KEY(productkey) REFERENCES dim_product(productkey)
 );

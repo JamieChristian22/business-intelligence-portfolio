@@ -1,18 +1,36 @@
--- Core Measures (DAX)
 Total Revenue = SUM(Fact_Sales[Revenue])
-Total Profit  = SUM(Fact_Sales[Profit])
-Profit Margin = DIVIDE([Total Profit],[Total Revenue])
+Total Profit = SUM(Fact_Sales[Profit])
+Total Leads = SUM(Fact_Sales[Leads])
+Deals Won = SUM(Fact_Sales[DealsWon])
+Profit Margin = DIVIDE([Total Profit], [Total Revenue])
+Conversion Rate = DIVIDE([Deals Won], [Total Leads])
+Average Deal Size = DIVIDE([Total Revenue], [Deals Won])
+Revenue per Lead = DIVIDE([Total Revenue], [Total Leads])
+Profit per Deal = DIVIDE([Total Profit], [Deals Won])
 
-Total Leads   = SUM(Fact_Sales[Leads])
-Deals Won     = SUM(Fact_Sales[DealsWon])
-Conversion Rate = DIVIDE([Deals Won],[Total Leads])
+Revenue Share =
+DIVIDE([Total Revenue], CALCULATE([Total Revenue], ALLSELECTED(Dim_Region[Region])))
 
-Avg Deal Size (Won) =
-AVERAGEX(
-    FILTER(Fact_Sales, Fact_Sales[DealsWon] = 1),
-    Fact_Sales[Revenue]
-)
+Region Revenue Rank =
+RANKX(ALLSELECTED(Dim_Region[Region]), [Total Revenue], , DESC, DENSE)
 
-Revenue CY = [Total Revenue]
-Revenue PY = CALCULATE([Total Revenue], SAMEPERIODLASTYEAR(Dim_Date[Date]))
-YoY Revenue Growth = DIVIDE([Revenue CY] - [Revenue PY], [Revenue PY])
+Revenue PY = CALCULATE([Total Revenue], DATEADD(Dim_Date[Date], -1, YEAR))
+Revenue YoY Change = [Total Revenue] - [Revenue PY]
+Revenue YoY % = DIVIDE([Revenue YoY Change], [Revenue PY])
+Profit PY = CALCULATE([Total Profit], DATEADD(Dim_Date[Date], -1, YEAR))
+Profit YoY % = DIVIDE([Total Profit] - [Profit PY], [Profit PY])
+Revenue YTD = TOTALYTD([Total Revenue], Dim_Date[Date])
+Profit YTD = TOTALYTD([Total Profit], Dim_Date[Date])
+
+Conversion vs Selected Avg =
+[Conversion Rate] - CALCULATE([Conversion Rate], ALLSELECTED(Dim_Region[Region]))
+
+Conversion Status =
+VAR Gap = [Conversion vs Selected Avg]
+RETURN SWITCH(TRUE(), Gap >= 0.01, "Above Average", Gap <= -0.01, "Needs Attention", "Near Average")
+
+Dynamic Report Title =
+"Sales Performance | " &
+COALESCE(SELECTEDVALUE(Dim_Region[Region]), "All Regions") &
+" | " &
+COALESCE(SELECTEDVALUE(Dim_Channel[Channel]), "All Channels")

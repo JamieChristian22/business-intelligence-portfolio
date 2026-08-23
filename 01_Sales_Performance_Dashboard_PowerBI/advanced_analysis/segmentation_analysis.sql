@@ -1,11 +1,7 @@
--- Customer Segmentation (High vs Low Value)
-SELECT
-  CASE
-    WHEN total_spent > 1000 THEN 'High Value'
-    WHEN total_spent > 500 THEN 'Mid Value'
-    ELSE 'Low Value'
-  END AS segment,
-  COUNT(*) AS customers,
-  AVG(total_spent) AS avg_spent
-FROM customers
-GROUP BY segment;
+WITH x AS (
+SELECT r.region,c.channel,p.product,SUM(s.revenue) revenue,SUM(s.profit) profit,SUM(s.leads) leads,SUM(s.dealswon) deals_won
+FROM fact_sales s JOIN dim_region r ON r.regionkey=s.regionkey
+JOIN dim_channel c ON c.channelkey=s.channelkey JOIN dim_product p ON p.productkey=s.productkey
+GROUP BY r.region,c.channel,p.product)
+SELECT *,profit*1.0/NULLIF(revenue,0) margin,deals_won*1.0/NULLIF(leads,0) conversion_rate,
+NTILE(4) OVER(ORDER BY revenue DESC) revenue_quartile FROM x ORDER BY revenue DESC;
