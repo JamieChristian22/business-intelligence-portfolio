@@ -1,21 +1,34 @@
+from pathlib import Path
 import pandas as pd
-from datetime import date, timedelta
+import numpy as np
 
-today = date(2026,2,24)
-cust = pd.read_csv("../data/Dim_Customer.csv", parse_dates=["SignupDate","ChurnDate"])
+ROOT=Path(__file__).resolve().parents[1]
+DATA=ROOT/"data"
+OUT=ROOT/"docs"/"KPI_Validation_Results.csv"
 
-active = cust[(cust["SignupDate"].dt.date<=today) & ((cust["ChurnDate"].isna()) | (cust["ChurnDate"].dt.date>today))]
-mrr = active["Price"].sum()
+c=pd.read_csv(DATA/"Dim_Customer.csv",parse_dates=["SignupDate","ChurnDate"])
+p=pd.read_csv(DATA/"Dim_Plan.csv")
+e=pd.read_csv(DATA/"Fact_Daily_Events.csv",parse_dates=["Date"])
 
-window_start = today - timedelta(days=30)
-active_start = cust[(cust["SignupDate"].dt.date<=window_start) & ((cust["ChurnDate"].isna()) | (cust["ChurnDate"].dt.date>window_start))]
-churned_window = cust[(cust["ChurnDate"].notna()) & (cust["ChurnDate"].dt.date>window_start) & (cust["ChurnDate"].dt.date<=today)]
-churn_rate_30 = len(churned_window)/max(len(active_start),1)
+assert {"CustomerID","SignupDate","PlanKey","ChurnDate","IsChurned","Plan","Price"}.issubset(c.columns)
+assert {"PlanKey","Plan","Price"}.issubset(p.columns)
+assert {"Date","CustomerID","Sessions","FeatureEvents","SupportTickets"}.issubset(e.columns)
+assert c["CustomerID"].is_unique
+assert p["PlanKey"].is_unique
+assert c["PlanKey"].isin(p["PlanKey"]).all()
+assert e["CustomerID"].isin(c["CustomerID"]).all()
+assert c["IsChurned"].isin([0,1]).all()
+assert (c["Price"]>=0).all()
+assert (e[["Sessions","FeatureEvents","SupportTickets"]]>=0).all().all()
 
-churned = cust[cust["ChurnDate"].notna()].copy()
-churned["TenureDays"] = (churned["ChurnDate"] - churned["SignupDate"]).dt.days
-early_share = (churned["TenureDays"]<=30).mean()
+asof=e["Date"].max()
+active=c[(c["SignupDate"]<=asof)&(c["ChurnDate"].isna()| (c["ChurnDate"]>asof))]
+mrr=active["Price"].sum()
+arr=mrr*12
 
-print("MRR:", int(mrr))
-print("Churn 30d:", round(churn_rate_30,4))
-print("Early churn share:", round(early_share,4))
+print(f"Customers: {len(c):,}")
+print(f"Event rows: {len(e):,}")
+print(f"Active customers: {len(active):,}")
+print(f"MRR: ${mrr:,.2f}")
+print(f"ARR run rate: ${arr:,.2f}")
+print("Validation passed.")

@@ -1,42 +1,30 @@
--- Current MRR (active subscriptions)
-SELECT SUM(price) AS mrr
+-- Active customers and current MRR as of an explicit reporting date
+SELECT
+    COUNT(*) AS active_customers,
+    SUM(price) AS mrr,
+    SUM(price) * 12 AS arr_run_rate,
+    AVG(price) AS arpu
 FROM dim_customer
-WHERE signupdate <= CURRENT_DATE
-  AND (churndate IS NULL OR churndate > CURRENT_DATE);
+WHERE signup_date <= :as_of_date
+  AND (churn_date IS NULL OR churn_date > :as_of_date);
 
--- 30-day churn rate
-WITH active_start AS (
-  SELECT COUNT(*) AS active_cnt
-  FROM dim_customer
-  WHERE signupdate <= (CURRENT_DATE - INTERVAL '30 day')
-    AND (churndate IS NULL OR churndate > (CURRENT_DATE - INTERVAL '30 day'))
-),
-churned AS (
-  SELECT COUNT(*) AS churn_cnt
-  FROM dim_customer
-  WHERE churndate > (CURRENT_DATE - INTERVAL '30 day')
-    AND churndate <= CURRENT_DATE
-)
-SELECT churn_cnt::NUMERIC / NULLIF(active_cnt,0) AS churn_rate_30d
-FROM active_start, churned;
+-- Recorded churn by plan
+SELECT plan,
+       COUNT(*) AS customers,
+       SUM(is_churned) AS churned_customers,
+       SUM(is_churned) * 1.0 / COUNT(*) AS recorded_churn_rate,
+       SUM(CASE WHEN is_churned=1 THEN price ELSE 0 END) AS churned_mrr
+FROM dim_customer
+GROUP BY plan
+ORDER BY churned_mrr DESC;
 
--- Cohort churn by signup month
-WITH cohorts AS (
-  SELECT DATE_TRUNC('month', signupdate) AS cohort_month,
-         customerid,
-         churndate
-  FROM dim_customer
-),
-cohort_stats AS (
-  SELECT cohort_month,
-         COUNT(*) AS cohort_size,
-         SUM(CASE WHEN churndate IS NOT NULL THEN 1 ELSE 0 END) AS churned
-  FROM cohorts
-  GROUP BY cohort_month
-)
-SELECT cohort_month,
-       cohort_size,
-       churned,
-       churned::NUMERIC / NULLIF(cohort_size,0) AS cohort_churn_rate
-FROM cohort_stats
-ORDER BY cohort_month;
+-- Monthly engagement
+SELECT DATE_TRUNC('month', event_date) AS month,
+       COUNT(DISTINCT customer_id) AS mau,
+       SUM(sessions) AS sessions,
+       SUM(feature_events) AS feature_events,
+       SUM(support_tickets) AS support_tickets,
+       SUM(sessions) * 1.0 / COUNT(DISTINCT customer_id) AS sessions_per_user
+FROM fact_daily_events
+GROUP BY DATE_TRUNC('month', event_date)
+ORDER BY month;
