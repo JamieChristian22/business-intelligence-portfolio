@@ -1,11 +1,8 @@
--- Customer Segmentation (High vs Low Value)
-SELECT
-  CASE
-    WHEN total_spent > 1000 THEN 'High Value'
-    WHEN total_spent > 500 THEN 'Mid Value'
-    ELSE 'Low Value'
-  END AS segment,
-  COUNT(*) AS customers,
-  AVG(total_spent) AS avg_spent
-FROM customers
-GROUP BY segment;
+-- Reviewed enterprise upgrade, 2026-10-10.
+-- Query uses PostgreSQL syntax unless noted; load original tables as named in sql/schema.sql.
+-- Distinguish gross over-spend from net variance; row-level accounting grain matters.
+SELECT department,SUM(budget) AS budget,SUM(actual) AS actual,
+ SUM(actual-budget) AS net_signed_variance,
+ SUM(CASE WHEN actual>budget THEN actual-budget ELSE 0 END) AS gross_unfavorable_variance,
+ SUM(CASE WHEN actual<budget THEN budget-actual ELSE 0 END) AS gross_favorable_variance
+FROM fact_budget_actual GROUP BY department ORDER BY gross_unfavorable_variance DESC;
