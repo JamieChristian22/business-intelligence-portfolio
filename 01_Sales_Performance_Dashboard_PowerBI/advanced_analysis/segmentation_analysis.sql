@@ -1,7 +1,10 @@
-WITH x AS (
-SELECT r.region,c.channel,p.product,SUM(s.revenue) revenue,SUM(s.profit) profit,SUM(s.leads) leads,SUM(s.dealswon) deals_won
-FROM fact_sales s JOIN dim_region r ON r.regionkey=s.regionkey
-JOIN dim_channel c ON c.channelkey=s.channelkey JOIN dim_product p ON p.productkey=s.productkey
-GROUP BY r.region,c.channel,p.product)
-SELECT *,profit*1.0/NULLIF(revenue,0) margin,deals_won*1.0/NULLIF(leads,0) conversion_rate,
-NTILE(4) OVER(ORDER BY revenue DESC) revenue_quartile FROM x ORDER BY revenue DESC;
+-- Reviewed enterprise upgrade, 2026-10-10.
+-- Query uses PostgreSQL syntax unless noted; load original tables as named in sql/schema.sql.
+-- Filter-aware region × channel ranking and deal economics. PostgreSQL compatible.
+WITH seg AS (SELECT r.region,c.channel,SUM(s.revenue) AS revenue,
+ SUM(s.profit) AS profit,SUM(s.dealswon) AS wins,SUM(s.leads) AS leads
+ FROM fact_sales s JOIN dim_region r ON r.regionkey=s.regionkey
+ JOIN dim_channel c ON c.channelkey=s.channelkey GROUP BY r.region,c.channel)
+SELECT *, revenue/NULLIF(wins,0) AS avg_deal_value,
+ wins*1.0/NULLIF(leads,0) AS win_rate,
+ DENSE_RANK() OVER (ORDER BY revenue DESC) AS revenue_rank FROM seg ORDER BY revenue DESC;
