@@ -1,11 +1,11 @@
--- Customer Segmentation (High vs Low Value)
-SELECT
-  CASE
-    WHEN total_spent > 1000 THEN 'High Value'
-    WHEN total_spent > 500 THEN 'Mid Value'
-    ELSE 'Low Value'
-  END AS segment,
-  COUNT(*) AS customers,
-  AVG(total_spent) AS avg_spent
-FROM customers
-GROUP BY segment;
+-- Reviewed enterprise upgrade, 2026-10-10.
+-- Query uses PostgreSQL syntax unless noted; load original tables as named in sql/schema.sql.
+-- Seller concentration and cumulative contribution, tie stable via seller_key.
+WITH sellers AS (SELECT seller_key,SUM(gmv) AS gmv,COUNT(*) AS orders,
+ SUM(returned)*1.0/NULLIF(COUNT(*),0) AS return_rate
+ FROM fact_marketplace_orders GROUP BY seller_key)
+SELECT seller_key,gmv,orders,return_rate,
+ gmv/NULLIF(SUM(gmv) OVER (),0) AS gmv_share,
+ SUM(gmv) OVER (ORDER BY gmv DESC,seller_key ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
+ /NULLIF(SUM(gmv) OVER (),0) AS cumulative_gmv_share
+FROM sellers ORDER BY gmv DESC,seller_key;
