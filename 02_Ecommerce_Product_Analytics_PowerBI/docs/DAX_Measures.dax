@@ -1,95 +1,42 @@
-// CORE KPIs
+// REVIEWED SOURCE MEASURES — copy/paste into original PBIX and verify there.
+// Fix: never call ALLSELECTED with columns originating in different tables in one argument set.
 Total Sessions = SUM(Fact_Web_Analytics[Sessions])
 Total Orders = SUM(Fact_Web_Analytics[Orders])
 Total Revenue = SUM(Fact_Web_Analytics[Revenue])
 Total Returns = SUM(Fact_Web_Analytics[Returns])
-
 Conversion Rate = DIVIDE([Total Orders], [Total Sessions])
 Average Order Value = DIVIDE([Total Revenue], [Total Orders])
 Return Rate = DIVIDE([Total Returns], [Total Orders])
 Revenue per Session = DIVIDE([Total Revenue], [Total Sessions])
-Orders per 1K Sessions = DIVIDE([Total Orders] * 1000, [Total Sessions])
-
-Weighted Bounce Rate =
-DIVIDE(
-    SUMX(
-        Fact_Web_Analytics,
-        Fact_Web_Analytics[BounceRate] * Fact_Web_Analytics[Sessions]
-    ),
+Weighted Bounce Rate = DIVIDE(
+    SUMX(Fact_Web_Analytics, Fact_Web_Analytics[BounceRate] * Fact_Web_Analytics[Sessions]),
     [Total Sessions]
 )
-
-// TIME INTELLIGENCE
-Revenue PY =
-CALCULATE([Total Revenue], DATEADD(Dim_Date[Date], -1, YEAR))
-
+Revenue PY = CALCULATE([Total Revenue], DATEADD(Dim_Date[Date], -1, YEAR))
 Revenue YoY Change = [Total Revenue] - [Revenue PY]
 Revenue YoY % = DIVIDE([Revenue YoY Change], [Revenue PY])
-
-Orders PY =
-CALCULATE([Total Orders], DATEADD(Dim_Date[Date], -1, YEAR))
-
-Orders YoY % =
-DIVIDE([Total Orders] - [Orders PY], [Orders PY])
-
-Conversion PY =
-CALCULATE([Conversion Rate], DATEADD(Dim_Date[Date], -1, YEAR))
-
+Conversion PY = CALCULATE([Conversion Rate], DATEADD(Dim_Date[Date], -1, YEAR))
 Conversion YoY Delta = [Conversion Rate] - [Conversion PY]
-
 Revenue YTD = TOTALYTD([Total Revenue], Dim_Date[Date])
 Orders YTD = TOTALYTD([Total Orders], Dim_Date[Date])
-
-// CONTRIBUTION / RANK
-Traffic Revenue Share =
-DIVIDE(
-    [Total Revenue],
-    CALCULATE([Total Revenue], ALLSELECTED(Dim_TrafficSource[TrafficSource]))
-)
-
-Traffic Revenue Rank =
-RANKX(
-    ALLSELECTED(Dim_TrafficSource[TrafficSource]),
-    [Total Revenue],
-    ,
-    DESC,
-    DENSE
-)
-
-Device Session Share =
-DIVIDE(
-    [Total Sessions],
-    CALCULATE([Total Sessions], ALLSELECTED(Dim_Device[Device]))
-)
-
-// DIAGNOSTIC MEASURES
-Conversion vs Selected Average =
-[Conversion Rate] -
-CALCULATE(
-    [Conversion Rate],
-    ALLSELECTED(Dim_Device[Device], Dim_TrafficSource[TrafficSource])
-)
-
-Optimization Flag =
-VAR HighTraffic =
-    [Total Sessions] >
+Traffic Revenue Share = DIVIDE([Total Revenue], CALCULATE([Total Revenue], ALLSELECTED(Dim_TrafficSource[TrafficSource])))
+Traffic Revenue Rank = RANKX(ALLSELECTED(Dim_TrafficSource[TrafficSource]), [Total Revenue], , DESC, DENSE)
+Device Session Share = DIVIDE([Total Sessions], CALCULATE([Total Sessions], ALLSELECTED(Dim_Device[Device])))
+// For a two-column selection, each ALLSELECTED is its own filter argument.
+Conversion vs Selected Benchmark =
+VAR ContextRate = [Conversion Rate]
+VAR SelectionRate =
     CALCULATE(
-        AVERAGEX(
-            SUMMARIZE(
-                Fact_Web_Analytics,
-                Fact_Web_Analytics[Device],
-                Fact_Web_Analytics[TrafficSource]
-            ),
-            [Total Sessions]
-        ),
-        ALLSELECTED(Fact_Web_Analytics)
+      [Conversion Rate],
+      ALLSELECTED(Dim_Device[Device]),
+      ALLSELECTED(Dim_TrafficSource[TrafficSource])
     )
-VAR BelowAvgConversion = [Conversion vs Selected Average] < 0
-RETURN
-IF(HighTraffic && BelowAvgConversion, "Priority Opportunity", "Monitor")
-
+RETURN ContextRate - SelectionRate
+// Compare explicit units: 0.01 = 1 percentage point, not 1% relative uplift.
+Conversion Flag =
+VAR Gap = [Conversion vs Selected Benchmark]
+RETURN SWITCH(TRUE(), ISBLANK(Gap), "Insufficient Data", Gap < -0.01, "Needs Attention", Gap > 0.01, "Above Benchmark", "Near Benchmark")
 Dynamic Report Title =
 "Ecommerce Performance | " &
 COALESCE(SELECTEDVALUE(Dim_Device[Device]), "All Devices") &
-" | " &
-COALESCE(SELECTEDVALUE(Dim_TrafficSource[TrafficSource]), "All Traffic Sources")
+" | " & COALESCE(SELECTEDVALUE(Dim_TrafficSource[TrafficSource]), "All Traffic Sources")
