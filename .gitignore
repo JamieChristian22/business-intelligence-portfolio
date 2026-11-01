@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+reports/
+.DS_Store
+*.pem
+*.p12
+*.pfx
+*.key
+# Keep curated synthetic data, source screenshots and BI workbooks intact.
