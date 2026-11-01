@@ -1,0 +1,83 @@
+name: BI portfolio evidence validation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  kpi-and-source:
+    name: KPI reconciliation and source parity (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11','3.12']
+    steps:
+      - name: Read-only source checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements-ci.txt
+      - name: Install reproducible KPI audit dependencies
+        run: python -m pip install -r requirements-ci.txt
+      - name: Check Python syntax
+        run: python -m compileall -q tools tests
+      - name: Reconcile five published KPI reports with underlying source facts
+        run: python -m tools.validate_bi --output reports/bi-validation.json
+      - name: Run negative-case, SQL DDL and dashboard source-parity tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Enforce project coverage and source evidence boundaries
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result=json.loads(Path('reports/bi-validation.json').read_text())
+          assert result['status']=='PASS_SOURCE_KPI_RECONCILIATION'
+          assert result['project_count']==5
+          assert result['validated_kpi_count']>=40
+          assert 'not rendered' in result['limits']
+          assert 'synthetic' in result['disclosure']
+          print('PASS:',result['validated_kpi_count'],'read-only published KPI checks across five BI projects')
+          PY
+      - name: Upload reviewed machine-readable evidence and offline explorer
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: bi-validation-python-${{ matrix.python-version }}
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            reports/bi-validation.json
+            demo/bi-evidence-explorer.html
+
+  secret-history:
+    name: Gitleaks full reachable Git history
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout all Git history
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Download and checksum-verify Gitleaks binary
+        run: |
+          curl --fail --location --retry 3 --silent --show-error \
+            https://github.com/gitleaks/gitleaks/releases/download/v8.24.2/gitleaks_8.24.2_linux_x64.tar.gz \
+            -o /tmp/gitleaks.tar.gz
+          echo 'fa0500f6b7e41d28791ebc680f5dd9899cd42b58629218a5f041efa899151a8e  /tmp/gitleaks.tar.gz' | sha256sum --check
+          tar -xzf /tmp/gitleaks.tar.gz -C /tmp gitleaks
+          chmod +x /tmp/gitleaks
+      - name: Scan full Git history
+        run: /tmp/gitleaks git --no-banner --redact .
