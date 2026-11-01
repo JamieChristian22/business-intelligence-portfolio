@@ -30,7 +30,7 @@ function el(tag,text,cls){const x=document.createElement(tag);if(text!==undefine
 function display(x){const n=Number(x);return !isFiniteNumber(x)?String(x):Math.abs(n)>=10000?n.toLocaleString("en-US",{maximumFractionDigits:2}):n.toLocaleString("en-US",{maximumFractionDigits:5})}
 for(const p of data.projects){const o=el("option",p.title);o.value=p.id;project.append(o)}
 function current(){return data.projects.find(p=>p.id===project.value)}
-function metrics(){const p=current();measure.replaceChildren();const sample=p.series[0]||{};for(const k of Object.keys(sample)){if(p.series.every(r=>isFiniteNumber(r[k]))){const o=el("option",k);o.value=k;measure.append(o)}}render()}
+function metrics(){const p=current();measure.replaceChildren();const sample=p.series[0]||{};for(const k of Object.keys(sample)){if(p.series.every(r=>isFiniteNumber(r[k])&&Number(r[k])>=0)){const o=el("option",k);o.value=k;measure.append(o)}}render()}
 function render(){
 const p=current();if(!p)return;const q=filter.value.trim().toLowerCase();
 const rows=p.kpis.filter(r=>r.KPI.toLowerCase().includes(q)),host=one("kpis");host.replaceChildren();
@@ -38,7 +38,7 @@ one("kpiCount").textContent=p.kpis.length;one("periodCount").textContent=p.serie
 one("found").textContent=rows.length+" of "+p.kpis.length+" published KPI rows";if(!rows.length)host.append(el("p","No matching metrics.","muted"));
 for(const row of rows){const item=el("div",undefined,"kpi");item.append(el("span",row.KPI),el("b",display(row.ValidatedValue)));host.append(item)}
 const name=measure.value;one("seriesTitle").textContent=p.title+" · "+(name||"Overview");
-one("about").textContent="Source breakdown values; units depend on this project's metric definition. Bars start at zero. No inter-project comparisons.";
+one("about").textContent="Source breakdown values; units depend on this project's metric definition. Only nonnegative metrics are charted from zero; signed values remain in the KPI table. No inter-project comparisons.";
 const candidates=name?p.series.map(r=>({label:r.YearMonth||r.MonthStart||r.Region||String(p.series.indexOf(r)+1),value:Number(r[name])})):[],max=Math.max(1,...candidates.map(x=>x.value)),hostChart=one("chart");hostChart.replaceChildren();
 for(const point of candidates){const item=el("div",undefined,"bar-row"),track=el("div",undefined,"track"),fill=el("div",undefined,"fill");fill.style.width=Math.max(0,Math.min(100,point.value/max*100))+"%";track.append(fill);item.append(el("span",point.label),track,el("span",display(point.value),"v"));hostChart.append(item)}
 hostChart.setAttribute("aria-label",p.title+" source "+name+": "+candidates.map(x=>x.label+" "+x.value).join("; "));
