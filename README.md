@@ -4,6 +4,18 @@
 
 ---
 
+## Interactive BI Portfolio Explorer & Reproducible KPI Audit
+
+[![BI evidence CI](https://github.com/JamieChristian22/business-intelligence-portfolio/actions/workflows/validate-bi.yml/badge.svg)](https://github.com/JamieChristian22/business-intelligence-portfolio/actions/workflows/validate-bi.yml)
+
+**[Explore the five-project interactive BI evidence dashboard](demo/bi-evidence-explorer.html)** · [KPI reconciliation methodology and coverage](docs/BI_VALIDATION.md)
+
+This offline portfolio dashboard offers source-backed KPI inspection, regional sales breakdowns, ecommerce and marketplace trend series, FP&A budget-vs-actual results, and StreamFlow SaaS operating metrics. Download/open the HTML locally for interactive filtering. Every presented number comes from the repository's historical case-study CSVs.
+
+**Reproducibility:** The new GitHub Actions workflow runs Python 3.11 and 3.12 KPI audits, referential-integrity tests, independent source-to-published-KPI comparisons, SQL schema parsing and dashboard source-parity tests. It scans Git history for secrets. **No native Power BI or Tableau file is opened or certified by CI.** The datasets and business-impact scenarios are simulated; projected incremental revenue and savings are potential outcomes, not achieved corporate results.
+
+---
+
 ## 💼 About This Portfolio
 
 This portfolio demonstrates **end-to-end Business Intelligence workflows** across real-world business scenarios:
@@ -201,7 +213,7 @@ It demonstrates the ability to:
 
 # 📬 Let’s Connect
 
-* 🔗 LinkedIn: [https://linkedin.com/in/your-link](https://www.linkedin.com/in/jamiechristian2/)
+* 🔗 LinkedIn: [linkedin.com/in/jamiechristian2](https://www.linkedin.com/in/jamiechristian2/)
 * 💻 GitHub: https://github.com/JamieChristian22
 * 📧 Email: [Jamiechristian331@gmail.com](mailto:Jamiechristian331@gmail.com)
 
