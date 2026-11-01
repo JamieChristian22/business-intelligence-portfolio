@@ -87,7 +87,7 @@ def sales():
 
 def ecommerce():
     name=PROJECTS[1];f=data(name,"Fact_Web_Analytics")
-    for fact_key,dim_name,dim_key in (("Date","Dim_Date","Full_Date"),("Device","Dim_Device","Device"),("TrafficSource","Dim_TrafficSource","TrafficSource")):
+    for fact_key,dim_name,dim_key in (("Date","Dim_Date","Date"),("Device","Dim_Device","Device"),("TrafficSource","Dim_TrafficSource","TrafficSource")):
         d=data(name,dim_name)
         k=dim_key if dim_key in d.columns else "FullDate" if dim_key=="Full_Date" and "FullDate" in d.columns else dim_key
         if k not in d.columns:
