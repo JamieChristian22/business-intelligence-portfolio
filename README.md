@@ -150,7 +150,7 @@ Improved budget control could reduce costs by **5–10% annually**
 
 ## 📈 5. SaaS Product Analytics — StreamFlow (Tableau)
 
-![SaaS Dashboard](./05_StreamFlow_SaaS_Product_Analytics_Tableau/Images/Product%20Analytics%20Dashboard%20%7C%20StreamFlow%20\(Simulated%20SaaS\).png)
+![SaaS Dashboard](./05_StreamFlow_SaaS_Product_Analytics_Tableau/Images/Product%20Analytics%20Dashboard%20%7C%20StreamFlow%20%28Simulated%20SaaS%29.png)
 
 ### 🎯 Business Problem
 
