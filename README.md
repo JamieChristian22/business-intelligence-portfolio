@@ -224,3 +224,7 @@ It demonstrates the ability to:
 This portfolio reflects how I approach Business Intelligence:
 
 > **Not just analyzing data — but driving decisions that matter.**
+
+## License and third-party materials
+
+See [LICENSE](LICENSE) for the repository license. Third-party code, datasets, images, and other assets retain their respective terms.
