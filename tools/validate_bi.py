@@ -6,6 +6,7 @@ python -m tools.validate_bi --output reports/bi-validation.json
 """
 from __future__ import annotations
 import argparse
+import csv
 import json
 import math
 from pathlib import Path
@@ -27,6 +28,10 @@ def fail(message):
 
 def data(project, basename):
     path = ROOT / project / "data" / f"{basename}.csv"
+    with path.open(encoding="utf-8-sig", newline="") as stream:
+        headers = next(csv.reader(stream), [])
+    if not headers or len(set(headers)) != len(headers) or any(not h.strip() for h in headers):
+        fail(f"{path}: duplicate or blank source CSV column")
     df = pd.read_csv(path, low_memory=False)
     if df.empty or not df.columns.is_unique:
         fail(f"{path}: empty file or duplicate columns")
@@ -77,6 +82,7 @@ def sales():
         d=data(name,dim);keys_unique(d,key,name);foreign(f,key,d,name)
     for col in ("Revenue","Leads","DealsWon"):
         bounded(f,col)
+    bounded(f, "Profit", low=-float("inf"))  # Losses are valid; NaN/infinity are not.
     if (f["DealsWon"]>f["Leads"]).any():
         fail("Sales: deals won exceed leads")
     R=float(f.Revenue.sum());P=float(f.Profit.sum());L=float(f.Leads.sum());W=float(f.DealsWon.sum())
