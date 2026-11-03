@@ -232,3 +232,9 @@ See [LICENSE](LICENSE) for the repository license. Third-party code, datasets, i
 ## Reviewer guide and asset provenance
 
 For a concise evidence-review path and asset-licensing verification checklist, see [REVIEWER_GUIDE.md](REVIEWER_GUIDE.md). Sample asset listings are not proof of ownership or redistribution rights.
+
+## Source-backed monthly ecommerce diagnostics
+
+Run `python -m tools.ecommerce_trends --output reports/ecommerce-trends.json` after installing `requirements-ci.txt`. The new [monthly trend module](tools/ecommerce_trends.py) aggregates **orders and sessions before calculating conversion**, weights bounce rates by sessions, reports returns and revenue per session, and intentionally leaves month-over-month comparisons undefined across missing months. It reads simulated underlying fact data rather than invented KPI values.
+
+[Regression tests](tests/test_ecommerce_trends.py) and the [BI workflow](.github/workflows/validate-bi.yml) validate the output; completed workflow artifacts include the generated JSON. The results are descriptive, not causal or production evidence.
