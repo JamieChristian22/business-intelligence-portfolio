@@ -19,7 +19,7 @@ class DataContracts(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             source = Path(tmp) / "example" / "data" / "Fact_Example.csv"
             source.parent.mkdir(parents=True)
-            source.write_text("CustomerID,CustomerID\\n1,2\\n", encoding="utf-8")
+            source.write_text("CustomerID,CustomerID\n1,2\n", encoding="utf-8")
             with patch.object(validator, "ROOT", Path(tmp)):
                 with self.assertRaisesRegex(ValueError, "duplicate"):
                     validator.data("example", "Fact_Example")
