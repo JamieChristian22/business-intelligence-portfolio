@@ -37,6 +37,8 @@ jobs:
         run: python tools/check_inline_js.py demo/bi-evidence-explorer.html
       - name: Reconcile five published KPI reports with underlying source facts
         run: python -m tools.validate_bi --output reports/bi-validation.json
+      - name: Recompute monthly ecommerce conversion and revenue trends
+        run: python -m tools.ecommerce_trends --output reports/ecommerce-trends.json
       - name: Run negative-case, SQL DDL and dashboard source-parity tests
         run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Enforce project coverage and source evidence boundaries
@@ -61,6 +63,7 @@ jobs:
           if-no-files-found: warn
           path: |
             reports/bi-validation.json
+            reports/ecommerce-trends.json
             demo/bi-evidence-explorer.html
 
   browser-smoke:
