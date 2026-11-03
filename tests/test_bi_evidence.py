@@ -8,11 +8,27 @@ import tempfile
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
+from unittest.mock import patch
+import tools.validate_bi as validator
 import pandas as pd
 from tools.validate_bi import (ROOT,PROJECTS,keys_unique,foreign,bounded,
                                check_published,nonzero,fail)
 
 class DataContracts(unittest.TestCase):
+    def test_duplicate_raw_csv_headers_are_rejected_before_pandas_mangling(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "example" / "data" / "Fact_Example.csv"
+            source.parent.mkdir(parents=True)
+            source.write_text("CustomerID,CustomerID\\n1,2\\n", encoding="utf-8")
+            with patch.object(validator, "ROOT", Path(tmp)):
+                with self.assertRaisesRegex(ValueError, "duplicate"):
+                    validator.data("example", "Fact_Example")
+
+    def test_signed_profit_accepted_but_nonfinite_profit_rejected(self):
+        bounded(pd.DataFrame({"Profit": [-12.5, 0.0]}), "Profit", low=-float("inf"))
+        with self.assertRaisesRegex(ValueError, "nonfinite"):
+            bounded(pd.DataFrame({"Profit": [float("inf")]}), "Profit", low=-float("inf"))
+
     def test_duplicate_dimension_keys_are_rejected(self):
         f=pd.DataFrame({"ID":[1,1],"Label":["one","two"]})
         with self.assertRaisesRegex(ValueError,"unique"):
